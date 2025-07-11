@@ -49,12 +49,15 @@ ul{
 }
 
 ul > li {
-    background-color: rgb(95, 92, 92);
+    background-color: grey;
+    color: black;
     padding: 10px;
     width: 200px;
     font-size: large;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 12px;
+    border-radius: 5px;
 }
 
 .delete{
@@ -63,4 +66,10 @@ ul > li {
     color: white;
     padding: 3px;
     width: 60px;
+}
+
+.completed{
+    background-color: rgb(51, 49, 49);
+    color: whitesmoke;
+    text-decoration: line-through;
 }

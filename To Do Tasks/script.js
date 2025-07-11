@@ -18,11 +18,34 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     tasks.push(newTask);
     saveTask();
+    renderTask(newTask);
     toDoInput.value = "";
   });
 
   function renderTask(task) {
-    console.log(task);
+    const li = document.createElement('li');
+    li.setAttribute('data-id', task.id);
+
+    if(task.completed) li.classList.add("completed");
+    li.innerHTML = `
+    <span>${task.text}</span>
+    <button class="delete">Delete</button>
+    `;
+
+    li.addEventListener('click', (e) => {
+      if(e.target.tagName === 'Button') return;
+      task.completed = !task.completed
+      li.classList.toggle('completed');
+      saveTask();
+    });
+
+    li.querySelector(".delete").addEventListener('click', (e) => {
+      e.stopPropagation(); //prevent toogle from firing
+      tasks = tasks.filter((t) => t.id !== task.id);
+      li.remove();
+      saveTask();
+    })
+    toDoList.appendChild(li);
   }
 
   function saveTask() {
