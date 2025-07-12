@@ -25,10 +25,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     productList.addEventListener('click', (e) => {
-        if(e.target.tagName === "Button"){
+        if(e.target.tagName === 'BUTTON'){
             const productId = parseInt(e.target.getAttribute("data-id"));
             const product = products.find(p => p.id === productId);
-            addToCart(productId)
+            addToCart(product)
+        }
+    });
+
+    function addToCart(product) {
+        cart.push(product);
+        renderCart();
+    }
+
+    function renderCart() {
+        cartItems.innerText = "";
+        let totalPrice = 0;
+
+        if(cart.length > 0) {
+            emptyCartMessage.classList.add('hidden')
+            cartTotalMessage.classList.remove('hidden');
+            cart.forEach((item, index) => {
+                totalPrice += item.price;
+                const cartItem = document.createElement('div');
+                cartItem.innerHTML = `
+                    ${item.name} - ${item.price.toFixed(2)}   
+                    <button class="remove" data-index="${index}"> Remove </button>
+                `
+                cartItems.appendChild(cartItem);
+                totalPriceDisplay.textContent = `
+                    ${totalPrice.toFixed(2)}
+                `
+            })
+        }
+        else {
+            emptyCartMessage.classList.remove('hidden');
+            totalPriceDisplay.textContent = `
+                    $0.00
+                `
+        }
+    }
+
+    checkOutBtn.addEventListener('click', () => {
+        cart.length = 0;
+        alert("Checkout Successfully");
+        renderCart();
+    })
+
+    cartItems.addEventListener('click', (e) => {
+        if(e.target.tagName === "BUTTON"){
+            const index = parseInt(e.target.getAttribute("data-index"));
+            if(!isNaN(index)){
+                const removedItem = cart[index];
+                cart.splice(index, 1);
+                let currentTotal = parseFloat(totalPriceDisplay.textContent.trim());
+                const newTotal = currentTotal - removedItem.price;
+                totalPriceDisplay.textContent = newTotal.toFixed(2);
+                renderCart();
+            }
         }
     })
-})
+});

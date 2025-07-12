@@ -71,17 +71,38 @@ button:hover{
     transition: background-color 0.3s;
 }
 
-#cart-items{
-    padding: 10px;
-    font-size: medium;
-    font-family: 'Times New Roman', Times, serif;
-    margin: 10px;
+.product button:hover {
+    background-color: #3700B3;
 }
 
-#empty-cart, .hidden{
+#cart-items{
+    padding: 10px;
+    font-size: large; 
+    margin-bottom: 10px;
+}
+
+#cart-items > div {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.hidden{
     display: none;
 }
 
 #cart-total{
     font-size: larger;
+    text-align: right;
+}
+
+#cart-items button{
+    background-color: red;
+    margin-left: 100px;
+    padding: 5px 10px;
+}
+
+#cart-items button:hover{
+    background-color: rgb(137, 37, 37);
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
