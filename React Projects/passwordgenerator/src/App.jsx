@@ -1,6 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useState, useCallback, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
@@ -8,6 +6,8 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+
+  const passwordRef = useRef(null)
 
   const generatePassword = useCallback(() => {
     let pass = "";
@@ -24,25 +24,32 @@ function App() {
     console.log(pass)
   }, [length, numberAllowed, charAllowed]);
 
+
+  const copyPasswordToClipboard = () => {
+    window.navigator.clipboard.writeText(password);
+    passwordRef.current?.select()
+  }
+
   useEffect(() => {
     generatePassword()
   }, [length, numberAllowed, charAllowed])
 
   return (
     <>
-      <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8">
+      <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 text-white">
         <h1 className="text-center my-3">Password Generator</h1>
         <div className="flex shadow rounded-lg overflow-hidden mb-4">
           <input
             type="text"
-            className="outline-none w-full py-1 px-3"
+            className="outline-none w-full py-1 px-3 bg-white text-gray-800"
             value={password}
             placeholder="Password"
             name=""
             id=""
             readOnly
+            ref={passwordRef}
           />
-          <button className="outline-none py-0.5 px-3 text-white bg-blue-700 shrink-0">
+          <button className="outline-none py-0.5 px-3 text-white bg-blue-700 shrink-0" onClick={copyPasswordToClipboard}>
             copy
           </button>
         </div>
