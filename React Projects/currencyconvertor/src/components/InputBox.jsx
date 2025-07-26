@@ -32,9 +32,9 @@ const InputBox = ({
         onChange={(e) => {onCurrencyChange && onCurrencyChange(e.target.value)}}
         disabled={currencyDisabled}
         >
-            {currencyOptions.map((currency) => {
-                <option value={currency} key={currency} >{currency}</option>
-            })}
+            {currencyOptions.map((currency) => (
+                <option key={currency} value={currency}  >{currency}</option>
+            ))}
         </select>
       </div>
     </div>
