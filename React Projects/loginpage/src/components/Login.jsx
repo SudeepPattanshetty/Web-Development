@@ -20,7 +20,7 @@ const Login = () => {
         </div>
         <button type="submit" className='box mt-10 shadow-sky-700 shadow-lg w-60 ml-12 h-10 rounded-sm m-2 text-xl bg-sky-400 text-gray-900 font-serif hover:bg-sky-600'>Login</button>
         </form>
-        <p className='text-white text-md m-1'>Create an account: <NavLink to={'/signup'}>Sign Up</NavLink></p>
+        <p className='text-white text-md m-1'>Create an account: <NavLink to={'/signup'} className='text-red-400'>Sign Up</NavLink></p>
       </div>
     </>
   )

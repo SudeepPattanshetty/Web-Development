@@ -53,7 +53,7 @@ const Signup = () => {
           </button>
         </form>
         <p className="text-white text-md mt-2">
-          Already have an account: <NavLink to={"/login"}>Login</NavLink>
+          Already have an account: <NavLink to={"/login"} className="text-green-300">Login</NavLink>
         </p>
       </div>
     </>
