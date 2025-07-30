@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const Login = () => {
   return (
     <>
-      <div className='bg-gray-800 text-white flex flex-col justify-center items-center p-10 box-inline box-inline shadow-lg shadow-gray-900 rounded-lg '>
+      <div className='bg-gray-800 text-white flex flex-col justify-center items-center p-10 box-inline box-inline shadow-lg shadow-gray-900 rounded-lg'>
         <form action="/">
         <div className=' flex'>
             <label htmlFor="email" className='text-xl text-sky-400 font-medium'>
