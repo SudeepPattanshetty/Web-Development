@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import { TodoProvider } from './contexts/Todos'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const [todo, setTodo] = useState([]);
+
+  const addTodo = (todo) => {
+    setTodo((prev) => [{id: Date.now(), ...todo}, ...prev])
+  }
+
+  const updateTodo = (id, todo) => {
+    setTodo((prevTodo) => (prevTodo.id === todo.id) ? todo : prevTodo)
+  }
+
+  const deleteTodo = (id) => {
+    setTodo((prev) => prev.filter((todo) => todo.id !== id))
+  }
+
+  const toggleComplete = (id) => {
+    setTodo((prev) => prev.map((prevTodo) => 
+      prevTodo.id === id ? {...prevTodo, completed: !prevTodo.completed} : prevTodo
+    ))
+  }
+
+  useEffect(() => {
+    const Items = JSON.parse(localStorage.getItem('todo'))
+    if(Items && Items.length > 0){
+      setTodo(todo)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo))
+  }, [todo])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <TodoProvider value={{todo, addTodo, updateTodo, deleteTodo, toggleComplete}}>
+      <h1 className='bg-gray-500 text-white'>Hello World</h1>
+    </TodoProvider>
   )
 }
 
